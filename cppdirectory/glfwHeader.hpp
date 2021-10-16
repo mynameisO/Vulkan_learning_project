@@ -1,10 +1,9 @@
+#pragma once
 #define GLFW_INCLUDE_VULKAN
 #include <GLFW/glfw3.h>
-#include <iostream>
-#include <cstdlib>
 #include <vector>
 #include <stdexcept>
-#include <array>
+#include <iostream>
+#include <sstream>
 #include <string>
-#include <cstring>
-#include <cstdint>
+#include <algorithm>

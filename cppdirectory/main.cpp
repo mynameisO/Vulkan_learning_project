@@ -1,9 +1,10 @@
-#include "MEApp.hpp"
+#include "App.hpp"
 
 int main(){
-    ME::MEApp App{800,600,"ME Engine"};
+    ME::MEApp app{"Welcome to hell"};
+
     try{
-        App.run();
+        app.run();
     }catch(std::exception& e){
         std::cerr << e.what() << std::endl;
         return EXIT_FAILURE;
