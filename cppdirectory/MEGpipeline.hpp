@@ -9,13 +9,12 @@ struct GpipelineConfig{
     VkPipelineViewportStateCreateInfo viewportstate{};
     VkPipelineRasterizationStateCreateInfo rasterize{};
     VkPipelineMultisampleStateCreateInfo multisampling{};
-    VkPipelineDepthStencilStateCreateInfo depthStensilTesting;
+    VkPipelineDepthStencilStateCreateInfo depthStensilTesting{};
     VkPipelineColorBlendAttachmentState colorAttachment{};
     VkPipelineColorBlendStateCreateInfo colorBlending{};
 
     static GpipelineConfig defaultConfig(VkViewport viewport,VkRect2D scissor);
 };
-
 
 class MEGpipeline{
 private:
