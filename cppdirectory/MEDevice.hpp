@@ -53,6 +53,9 @@ class MEDevice {
   VkFormat swapChainImageFormat(){return swapChainImageFormat_;}
   VkExtent2D swapChainExtent(){return swapChainExtent_;}
 
+  bool createRenderPass(VkRenderPass& renderpass);
+  void createViewportAndScissor(VkViewport& viewport,VkRect2D& scissor);
+
   SwapChainSupportDetails getSwapChainSupport() { return querySwapChainSupport(physicalDevice); }
   uint32_t findMemoryType(uint32_t typeFilter, VkMemoryPropertyFlags properties);
   QueueFamilyIndices findPhysicalQueueFamilies() { return findQueueFamilies(physicalDevice); }

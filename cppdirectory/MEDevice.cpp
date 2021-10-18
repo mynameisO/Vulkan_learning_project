@@ -654,4 +654,51 @@ void MEDevice::createImageView(){
   }
 }
 
+   bool MEDevice::createRenderPass(VkRenderPass& renderpass){
+        VkAttachmentDescription colorAttach;
+        colorAttach.format = swapChainImageFormat_;
+        colorAttach.samples = VK_SAMPLE_COUNT_1_BIT;
+        colorAttach.loadOp = VK_ATTACHMENT_LOAD_OP_CLEAR;
+        colorAttach.storeOp = VK_ATTACHMENT_STORE_OP_STORE;
+        colorAttach.stencilStoreOp = VK_ATTACHMENT_STORE_OP_DONT_CARE;
+        colorAttach.stencilLoadOp = VK_ATTACHMENT_LOAD_OP_DONT_CARE;
+        colorAttach.initialLayout = VK_IMAGE_LAYOUT_UNDEFINED;
+        colorAttach.finalLayout = VK_IMAGE_LAYOUT_PRESENT_SRC_KHR;
+        colorAttach.flags = 0;
+
+        //subpass
+        VkAttachmentReference colorAttachRef;
+        colorAttachRef.attachment = 0;
+        colorAttachRef.layout = VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL;
+
+        VkSubpassDescription subpass{};
+        subpass.pipelineBindPoint = VK_PIPELINE_BIND_POINT_GRAPHICS;
+        subpass.colorAttachmentCount = 1;
+        subpass.pColorAttachments = &colorAttachRef;
+        
+        std::vector<VkSubpassDescription> subpasses;
+        subpasses.push_back(subpass);
+
+        VkRenderPassCreateInfo renderInfo{};
+        renderInfo.sType = VK_STRUCTURE_TYPE_RENDER_PASS_CREATE_INFO; 
+        renderInfo.attachmentCount = 1; 
+        renderInfo.pAttachments = &colorAttach;
+        renderInfo.subpassCount = (uint32_t) subpasses.size();
+        renderInfo.pSubpasses = subpasses.data();
+
+        if(vkCreateRenderPass(device_,&renderInfo,nullptr,&renderpass) != VK_SUCCESS){
+            return false;
+        }
+        return true;
+    }
+  void MEDevice::createViewportAndScissor(VkViewport& viewport,VkRect2D& scissor){
+        viewport.x = 0;
+        viewport.y = 0;
+        viewport.height = (float) swapChainExtent_.height;
+        viewport.width = (float) swapChainExtent_.width;
+        viewport.minDepth = 0.0f;
+        viewport.maxDepth = 1.0f;
+        scissor.offset = {0,0};
+        scissor.extent = swapChainExtent_;
+    }
 }

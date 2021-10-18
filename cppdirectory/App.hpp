@@ -1,7 +1,7 @@
 #pragma once
 #include "MEWindow.hpp"
 #include "MEDevice.hpp"
-
+#include "MEGpipeline.hpp"
 
 namespace ME{
 
@@ -13,6 +13,7 @@ private:
 
     MEWindow window{width,height,name};
     MEDevice device{window};
+    MEGpipeline graphicPipeline{device,"Shader/Shader32.vert.spv","Shader/Shader32.frag.spv"};
 public:
     void run();
     MEApp(const std::string name);
