@@ -27,6 +27,8 @@ private:
     void createPipeline(const std::string& vertFilename,const std::string& fragFilename);
     VkShaderModule createShaderModule(const std::vector<char>& code);
 public:
+    VkRenderPass renderPass(){return renderpass;}
+    VkPipeline graphicPipeline(){return pipeline;}
     MEGpipeline(MEDevice& device,std::string vertFilename,std::string fragFilename);
     ~MEGpipeline();
     static std::vector<char> readFile(const std::string& filename);
