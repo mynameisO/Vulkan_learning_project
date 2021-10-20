@@ -49,7 +49,9 @@ class MEDevice {
   VkQueue graphicsQueue() { return graphicsQueue_; }
   VkQueue presentQueue() { return presentQueue_; }
   VkSwapchainKHR swapchain() {return swapChain_;}
-  std::vector<VkImage> swapChainImage(){return swapChainImage_;}
+  VkPhysicalDevice getPhysicalDevice() {return physicalDevice;}
+  std::vector<VkImageView> swapChainImageView(){return swapChainImageView_;}
+
   VkFormat swapChainImageFormat(){return swapChainImageFormat_;}
   VkExtent2D swapChainExtent(){return swapChainExtent_;}
 
@@ -57,29 +59,7 @@ class MEDevice {
   void createViewportAndScissor(VkViewport& viewport,VkRect2D& scissor);
 
   SwapChainSupportDetails getSwapChainSupport() { return querySwapChainSupport(physicalDevice); }
-  uint32_t findMemoryType(uint32_t typeFilter, VkMemoryPropertyFlags properties);
   QueueFamilyIndices findPhysicalQueueFamilies() { return findQueueFamilies(physicalDevice); }
-  VkFormat findSupportedFormat(
-      const std::vector<VkFormat> &candidates, VkImageTiling tiling, VkFormatFeatureFlags features);
-
-  // Buffer Helper Functions
-  void createBuffer(
-      VkDeviceSize size,
-      VkBufferUsageFlags usage,
-      VkMemoryPropertyFlags properties,
-      VkBuffer &buffer,
-      VkDeviceMemory &bufferMemory);
-  VkCommandBuffer beginSingleTimeCommands();
-  void endSingleTimeCommands(VkCommandBuffer commandBuffer);
-  void copyBuffer(VkBuffer srcBuffer, VkBuffer dstBuffer, VkDeviceSize size);
-  void copyBufferToImage(
-      VkBuffer buffer, VkImage image, uint32_t width, uint32_t height, uint32_t layerCount);
-
-  void createImageWithInfo(
-      const VkImageCreateInfo &imageInfo,
-      VkMemoryPropertyFlags properties,
-      VkImage &image,
-      VkDeviceMemory &imageMemory);
 
   VkPhysicalDeviceProperties properties;
 
@@ -105,6 +85,7 @@ class MEDevice {
   VkSurfaceFormatKHR chooseSwapSurfaceFormat(const std::vector<VkSurfaceFormatKHR>& availabbleFormat);
   VkPresentModeKHR choosePresentMode(const std::vector<VkPresentModeKHR>& availableModes);
   VkExtent2D chooseExtent(const VkSurfaceCapabilitiesKHR& capabilities);
+  
   VkInstance instance;
   VkDebugUtilsMessengerEXT debugMessenger;
   VkPhysicalDevice physicalDevice = VK_NULL_HANDLE;

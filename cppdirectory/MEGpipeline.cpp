@@ -10,7 +10,7 @@ MEGpipeline::MEGpipeline(MEDevice& device,std::string vertFilename,std::string f
     }
 }
 
-MEGpipeline::~MEGpipeline(){
+MEGpipeline::~MEGpipeline(){ 
     vkDestroyPipeline(device_.device(),pipeline,nullptr);
     vkDestroyPipelineLayout(device_.device(),pipelineLayout,nullptr);
     vkDestroyRenderPass(device_.device(),renderpass,nullptr);
